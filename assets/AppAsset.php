@@ -21,9 +21,19 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/main.min.css',
-        'css/agency.css',
+        'css/real-estate.css',
+        'css/font-icons.css',
+        'css/fonts.css',
+        'css/bs-select.css',
+        'css/bs-switches.css',
+        'css/ion.rangeslider.css',
     ];
     public $js = [
+        'js/jquery.js',
+        'js/bs-select.js',
+        'js/bs-switches.js',
+        'js/function.js',
+        'js/rangeslider.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

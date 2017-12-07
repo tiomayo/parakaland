@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use app\models\Organization;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
@@ -54,6 +55,12 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionMaintenance()
+    {
+        $this->layout = 'blank';
+        return $this->render('maintenance');
+    }
+
     /**
      * Displays homepage.
      *
@@ -62,7 +69,16 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main-layouts';
-        return $this->render('index');
+        $model = Organization::find()->one();
+
+        return $this->render('home', ['model'=>$model]);
+    }
+
+    public function actionGallery()
+    {
+        $this->layout = 'main-layouts';
+
+        return $this->render('gallery');
     }
 
     /**

@@ -7,6 +7,14 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'on beforeRequest' => function ($event) {
+        if (Yii::$app->params['maintenance'] == true) {
+            Yii::$app->catchAll = [
+                // force route if portal in maintenance mode
+                'site/maintenance',
+            ];
+        }
+    },
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -51,6 +59,29 @@ $config = [
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
+                    'js' => []
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'sourcePath' => null, //do not publish the bundle
+                    'js' => [],
+                ]
+            ],
+        ],
+        'view' => [
+            'theme' => [
+                'basePath' => '@web/themes/canvas',
+                'baseUrl' => '@web/themes/canvas',
+            ],
         ],
     ],
     'params' => $params,
